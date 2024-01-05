@@ -1,0 +1,97 @@
+CÂU 1. Khác nhau giữa #include<...> and #include"..."
+    là preprocessor(tiền xử lý) giúp thêm các file đã được định trạng trước vào source code program
+
+- type of header files: 2 type
+1. Pre-Existing Header Files(#include<...>): các file tiêu đề(#inclule, #defỉne, ...) đã có trong trình biên dịch MINGW chứa các thư viện tiêu chuẩn của C/C++
+    ex: #include<stdio.h>
+2. User-Defined Header Files(#include"..."): các file tiêu đề được viết và define bởi chính người dùng, điều này giúp ta không phải viết 1 hàm cụ thể nhiều lần
+    ex: #include"lib.h"
+Note: file tiêu đề phải cùng đường dẫn trong thư mục lưu thư viên tiêu chuẩn như Stdio.h,.. hoặc phải cùng thư mục với file đang code
+
+CÂU 2: khai báo kiểu dữ liệu
+int x = 100; kiểu số nguyên
+float/double x = 23.05; kiểu số thực
+char x[] = "daongoctruong" 
+char x[] = {'a', 'b', 'c', 'd', '\0'} kiểu số và chữ
+
+data type modifiers + basic data types = derived data types
+ex: unsigned int: permits only positive numbers: các số nguyên dương
+singed int: lấy 1 nữa giá trị mà int có thể lưu trữ int là 4byte thì giờ chỉ có thể lưu chữ 2 byte
+long int: chiếm 1 phần lớn bộ nhớ cấp trong int
+short int: chiếm phần nhỏ bộ nhớ cấp trong int
+const: const int x = 5: giá trị này không thể thay đôi khi code
+
+CÂU 3.
+#include <stdio.h>
+#include <string.h>
+
+void strups(char x[]){
+    for (int i = 0; i < strlen(x) ; i++) {
+        if(x[i] > = 97 && x[i] <= 122){
+            x[i] = x[i] - 32;
+        }
+    }
+}
+void strlows(char x[]){
+    for (int i = 0; i < strlen(x) ; i++) {
+        if(x[i] > = 65 && x[i] <= 90){
+            x[i] = x[i] + 32;
+        }
+    }
+}
+
+int main() {
+    char x[50] = "";
+    gets(x);
+    strups(x);
+    print("in hoa tat ca cac chu: %s", x);
+    return 0;
+}
+
+CÂU 4:
+
+- t1: 24byte
+- t2: 11byte
+- u3: 8byte
+- bf4:  18byte
+
+CÂU 5:
+#include:   thêm vào file.c các thư việc (stdio.h,string.h,..) và cũng có thể từ những file.h của riêng bạn
+#define:    cho phép khai báo 1 hằng số của tiền sử lý
+#undef:     khi ta cần định nghĩa lại một tên mà ta đã định nghĩa trước đó thì ta sử dụng #undef để hủy bỏ định nghĩa đó và sử dụng #define định nghĩa lại cho tên đó.
+#ifdef:     Chỉ thị #ifdef kiểm tra một macro được định nghĩa trong #define. nếu đúng thì nó thực thi code ngược lại thực thi code trong #else
+#ifndef:    Chỉ thị tiền xử lý #ifdef kiểm tra một macro không được định nghĩa trong #define. nếu đúng thì nó thực thi code ngược lại thực thi code trong #else
+#if:        Chỉ thị tiền xử lý #if đánh giá biểu thức hoặc điều kiện. Nếu điều kiện là đúng, nó thực thi mã nếu không thực thi mã trong  #elseif hoặc #else hoặc #endif được thực thi..
+#error:      Chỉ thị tiền xử lý #error  chỉ ra lỗi. Trình biên dịch gây ra lỗi nghiêm trọng nếu chỉ thị #error được tìm thấy và bỏ qua quá trình biên dịch tiếp theo.
+#pragram    Chỉ thị tiền xử lý #pragma là một chỉ thị cho compiler biết cách dịch chương trình theo một số “tùy chọn” đặc biệt, tùy thuộc vào từng trình biên dịch.
+
+
+CÂU6: 
+các bước viết 1 chương trình:
+b1: xác định vấn đề cần giải quyết
+b2: thiết lập giải pháp
+b3: viết chương trình
+b4: biên dịch chương trình
+b5: liên kết các object
+b6: chạy các chương trình kiểm tra lỗi
+
+CÂU7:
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+void cal_area(length,width){
+    area = length * width;
+    printf("dien tich hinh chu nhat: %f", area);
+}
+void cal_pmt(length,width){
+    perimeter = 2*(length + width);
+    printf("chu vi hinh chu nhat: %f", perimeter);
+}
+int main(){
+    float length,width,area,perimeter;
+    scanf("chieu dai %f\n",&length);
+    scanf("chieu rông %f\n",&width);
+    cal_area(length,width);
+    cal_pmt(length,width);
+    return 0;
+}
