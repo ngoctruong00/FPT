@@ -1,0 +1,241 @@
+
+CÂU 1: nhập năm và tháng in ra số ngày
+
+   // #include "lib.h"
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int month, year;
+    scanf("%d",&month);
+    scanf("%d",&year);
+    switch (month)
+    {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            printf("thang co 31 ngay");
+            break;
+        case 2:
+            if(year % 4 == 0 && year % 100 != 0){
+                printf("thang 2 có 29 ngay");
+                break;
+            }
+            else{
+                printf("thang 2 có 28 ngay");
+                break;
+            };
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            printf("tháng co 30 ngay");
+            break;    
+        default:
+            printf("nhap sai");
+            break;
+        }
+    
+    return 0;
+}
+
+
+CÂU 2: tính 7!
+dùng vòng lập for
+#include <stdio.h>
+#include <math.h>
+
+int main(){
+    int tong = 1;
+    for(int i = 1; i < 8; i++){
+        tong = tong*i;
+    }
+    printf("tong = %d\n", tong);
+    return 0;
+}
+
+dùng goto:
+#include <stdio.h>
+#include <math.h>
+
+int main(){
+    int tong = 1;
+    int i = 1;
+    sum:
+    if (i < 8){
+        tong = tong * i;
+        i ++; 
+        goto sum;
+    }
+    printf("tong = %d\n", tong);
+    return 0;
+}
+
+CÂU 3: So sánh 2 số a và b
+#include <stdio.h>
+#include <math.h>
+
+int main(){
+    int a,b;
+    printf("nhap a va b, a khac b\n");
+    scanf("%d",&a);
+    scanf("%d",&b);
+    if(a < b){
+        printf("b lon hon a\n");
+        printf("%d",b);
+    }
+    else{
+        printf("a lon hon b\n");
+        printf("%d",a);
+    };
+    return 0;
+}
+
+CÂU 4: tìm số lớn nhất trong 3 số a = 1, b = 2; c = 3;
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int a = 1, b = 2, c = 3;
+    if(a < b && a < c && b < c){
+        printf(" so lon nhat la c");
+    };
+    return 0;
+}
+
+CÂU 5: xác định chẵn lẻ
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int a;
+    scanf("%d",&a);
+    if(a % 2 == 0){
+        printf("chan");
+    }
+    else{
+        printf("le");
+    };
+    return 0;
+}
+
+CÂU6 : kiểm tra năm nhuận
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int year;
+    scanf("%d",&year);
+    if(year % 4 == 0 && year % 100 != 0){
+        printf("nam nhuan");
+    }else{
+        printf("khong nhuan");
+    }
+    return 0;
+}
+
+
+CÂU 7: đổi giá trị 2 biến cho nhau
+#include <stdio.h>
+#include <math.h>
+
+int main(){
+    int a,b,tmp;
+    scanf("%d",&a);
+    scanf("%d",&b);
+    tmp = a;
+    a = b;
+    b = tmp;
+    printf("a %d\n",a);
+    printf("b %d",b);
+    return 0;
+}
+
+CÂU 8: đổi biến không dùng biến phụ
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int a,b,tmp;
+    scanf("%d",&a);
+    scanf("%d",&b);
+    a = (a + b);
+    b = (a - b);
+    a = a - b;
+    printf("a %d\n",a);
+    printf("b %d",b);
+    return 0;
+}
+
+CÂU 9: tính giá tiền điện:
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int e_con,e_con_fee;
+    scanf("%d",&e_con);
+
+    if(0 < e_con < 100){
+            e_con_fee = e_con * 600;
+            printf("Consum_fee %d",e_con_fee);
+            
+    }
+    else if(101 < e_con < 150){
+            e_con_fee = e_con * 900;
+            printf("Consum_fee %d",e_con_fee);
+    }
+    else if(151 < e_con < 250){
+            e_con_fee = e_con * 1200;
+            printf("Consum_fee %d",e_con_fee);
+    }
+    else
+    {
+            e_con_fee = e_con * 150 ;
+            printf("Consum_fee %d",e_con_fee);        
+    }
+    return 0;
+}
+
+
+CÂU 10:chênh lệch ngày
+#include <stdio.h>
+#include <math.h>
+
+
+int main(){
+    int diff_d,diff_m,diff_y;
+    int day1,month1,year1;
+    int day2,month2,year2;
+    scanf("%d",&day1);
+    scanf("%d",&month1);
+    scanf("%d",&year1);
+    scanf("%d",&day2);
+    scanf("%d",&month2);
+    scanf("%d",&year2);
+    printf("date1:%d/%d/%d\n", day1,month1,year1);
+    printf("date2:%d/%d/%d\n", day2,month2,year2);
+    if(year1==year2){
+        if(month1==month2){
+            diff_d = abs(day1 - day2);
+            printf("diff_d: %d\n", diff_d);
+        }
+        else if(month1 != month2){
+            diff_m = abs(month1 - month2);
+            diff_d = abs(day1 - day2);
+            printf("diff_d: %d\n", diff_d);
+            printf("diff_m: %d\n", diff_m);
+        }
+    }
+
+    return 0;
+}
