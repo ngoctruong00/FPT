@@ -1,33 +1,45 @@
 // #include "lib.h"
 
 #include <stdio.h>
-#include <math.h>
-
-
-int main(){
-    int diff_d,diff_m,diff_y;
-    int day1,month1,year1;
-    int day2,month2,year2;
-    scanf("%d",&day1);
-    scanf("%d",&month1);
-    scanf("%d",&year1);
-    scanf("%d",&day2);
-    scanf("%d",&month2);
-    scanf("%d",&year2);
-    printf("date1:%d/%d/%d\n", day1,month1,year1);
-    printf("date2:%d/%d/%d\n", day2,month2,year2);
-    if(year1==year2){
-        if(month1==month2){
-            diff_d = abs(day1 - day2);
-            printf("diff_d: %d\n", diff_d);
-        }
-        else if(month1 != month2){
-            diff_m = abs(month1 - month2);
-            diff_d = abs(day1 - day2);
-            printf("diff_d: %d\n", diff_d);
-            printf("diff_m: %d\n", diff_m);
-        }
+struct Student{
+    char name[100];
+    int toan;
+    int van;
+    int anh;
+    int ly;
+    int hoa;
+};
+void input(struct Student a[], int n){
+    for(int i = 0; i < n; i++){
+        printf("Ten hoc sinh: \n");
+        scanf("%s",&a[i].name);
+        printf("Diem Toan: \n");
+        scanf("%d",&a[i].toan);
+        printf("Diem van: \n");
+        scanf("%d",&a[i].van);
+        printf("Diem anh: \n");
+        scanf("%d",&a[i].anh);
+        printf("Diem ly: \n");
+        scanf("%d",&a[i].ly);
+        printf("Diem hoa: \n");
+        scanf("%d",&a[i].hoa);
     }
+}
+void print(struct Student a[],int n){
+    for(int i = 0; i < n ; i++){
+        printf("Ten hoc sinh: %s \n",a[i].name);
+        printf("Diem Toan: %d\n",a[i].toan);
+        printf("Diem van: %d \n",a[i].van);
+        printf("Diem anh: %d\n",a[i].anh);
+        printf("Diem ly: %d\n",a[i].ly);
+        printf("Diem hoa: %d\n",a[i].hoa);
+    }    
 
+}
+int main(){
+    int n;
+    struct Student student1[n];
+    input(student1,2);
+    print(student1,2);
     return 0;
 }

@@ -1,0 +1,144 @@
+CÂU 2:
+// #include "lib.h"
+
+#include <stdio.h>
+#include <math.h>
+
+int swap(int x, int y){
+    int tmp;
+    tmp = x;
+    x = y;
+    y = tmp;
+    printf("%d va %d",x,y);
+}
+int main(){
+    int x, y;
+    scanf("%d", &x);
+    scanf("%d", &y);
+    swap(x, y);
+    return 0;
+}
+CÂU 3:
+a. tính tổng trong mảng
+#include <stdio.h>
+#include <math.h>
+#include <strings.h>
+#include <strings.h>
+
+int sum_arr(int x[],int n){
+    int sum = 0;
+    for(int i = 0; i < n;i++){
+        sum += x[i];
+    }
+    printf("%d\n",sum);
+    return sum;
+}
+void input_ar(int a[],int n){
+    for(int i = 0; i < n;i++){
+        printf(" phan tu a[%d]: ",i);
+        scanf("%d",&a[i]);
+    };
+}
+int main(){
+    int n;
+    int arr[n];
+    scanf("%d",&n);
+    input_ar(arr,n);
+    sum_arr(arr,n);
+    // int a = strlen(arr);
+    return 0;
+}
+
+
+b.tìm số lớn nhất trong mảng#include <stdio.h>
+
+
+int large_arr(int x[],int n){
+    
+    for(int i = n; i > 0; i--){
+        for(int j = 0; j < n;j++){
+            if(x[j] > x[j+1]){
+                int tmp;
+                tmp = x[j];
+                x[j] = x[j+1];
+                x[j+1] = tmp;
+            }
+        }
+        
+    }
+}
+void input_ar(int a[],int n){
+    for(int i = 0; i < n;i++){
+        printf(" phan tu a[%d]: ",i);
+        scanf("%d",&a[i]);
+    };
+}
+int main(){
+    int n;
+    int arr[n];
+    scanf("%d",&n);
+    input_ar(arr,n);
+    large_arr(arr,n);
+    printf("so lon nhat cua mang %d",arr[n]);
+    // int a = strlen(arr);
+    return 0;
+}
+
+C,d. in mảng
+void print_arr(int x[],int n){
+    for(int i = 0; i < n;i++){
+        printf("%d ",x[i]);
+    }
+}
+void input_ar(int a[],int n){
+    for(int i = 0; i < n;i++){
+        printf(" phan tu a[%d]: ",i);
+        scanf("%d",&a[i]);
+    };
+}
+int main(){
+    int n;
+    int arr[n];
+    scanf("%d",&n);
+    input_ar(arr,n);
+    print_arr(arr,n);
+    return 0;
+}
+
+e in amng nguoc
+void reverse_ar(int a[],int n){
+    for(int i = n - 1; i >= 0;i--){
+        printf("%d ",a[i]);
+    }
+} 
+int main(){
+    int n;
+    int arr[n];
+    scanf("%d",&n);
+    input_ar(arr,n);
+    print_arr(arr,n);
+    reverse_ar(arr,n);
+    return 0;
+}
+
+
+f. tính giá trị trung bình
+int average(int x[],int n){
+    int a = 0;
+    for(int i = 0; i < n ; i++){
+        a += x[i];
+    }
+    int TB = (a/n);
+    printf("average %d",TB);
+}
+int main(){
+    int n;
+    int arr[n];
+    scanf("%d",&n);
+    input_ar(arr,n);
+    print_arr(arr,n);
+    reverse_ar(arr,n);
+    average(arr,n);
+    return 0;
+}
+
