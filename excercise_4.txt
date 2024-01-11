@@ -1,0 +1,38 @@
+câu 1: nêu địa chỉ biến
+#include <stdio.h>
+#include <math.h>
+struct MyStruct {
+    char a;
+    long b;
+    char c[17];
+    short d;
+};
+int main(){
+    struct MyStruct myStruct; // khai bao struct myStruct
+    printf("đia chi: %x\n",&myStruct.a); // in dia chi bien a
+    printf("đia chi: %x\n",&myStruct.b); // in dia chi bien b
+    printf("đia chi: %x\n",myStruct.c); // in dia chi bien c vì mảng có tính chất giống với 1 con trỏ nên không cần &
+    printf("đia chi: %x\n",&myStruct.d); // in dia chi bien d
+    return 0;
+}
+
+
+Câu 2:
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+    char str[] = "hello world";
+    char rev_str[100];
+    int a = strlen(str);
+    printf("%d\n",a);
+    for(int i = 0; i < a; i++){
+        rev_str[i] = str[a-i-1];
+    }
+    printf("reverse: %s",rev_str);
+    return 0;
+}
+
+Câu 3:
+
+
