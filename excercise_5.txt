@@ -1,0 +1,60 @@
+Lesson 5
+//CÂU 1: byte endian
+
+int n = 42829; // 1010 0111 0100 1101 // A7 4D
+// little endian (xuất phát từ "little-end" nghĩa kết thúc nhỏ hơn)
+//- 4D A7
+// Big endian (xuất phát từ "big-end") thì ngược lại
+//- A7 4D
+
+
+//CÂU 2: chuyển đổi cơ số
+//2.1: cơ số 10 sang cơ số 2
+// 29 --> 11101 // chia cho 2
+// 2.2 chuyển cơ số 10 sang 16 29 --> 1D (chia cho 16)
+// 2.3 cơ số 2 sang cơ số 10. Ví dụ 10010101 --> 2^7 + 2^4 + 2^2 + 2^0 = 95
+// 2.4 cơ số 16 sang cơ số 2 và ngược lại. Ví dụ 0xA5 --> 10100101, 10010101 --> 0x95
+
+CÂU 3: toggle a specific bit
+#include <stdio.h>
+#include <math.h>
+
+int bin;
+int toggle(int a, int pos){
+    int mask = 1 << pos;
+    bin = a ^ mask;
+    return bin;
+}
+int main(){
+    int a,pos;
+    printf("nhap so nhi phan a: \n");
+    scanf("%d",&a);
+    printf("nhap vi tri: \n");
+    scanf("%d",&pos);
+    toggle(a,pos);
+    toggle(a,pos);
+    printf("so sau khi toggle %d",bin);
+    return 0;
+}
+
+câu 4:
+#include <stdio.h>
+#include <math.h>
+void check_chan_le(unsigned int a){
+    if(a % 2 == 0){
+        printf("chan");
+    }
+    else{
+        printf("le");
+    }
+}
+
+int main(){
+    unsigned int a;
+    printf("nhap a: \n");
+    scanf("%d",&a);
+    check_chan_le(a);
+    return 0;
+}
+
+

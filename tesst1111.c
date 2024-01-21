@@ -2,22 +2,27 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+int *arr = (int *)malloc(100*sizeof(int));
+
+void change_int_binary(int a){
+    for(int i = 0; i < 100; i++){
+        arr[i] = a % 2;
+        a = a / 2;
+    }
+    for(int i = 0; i < 100; i++){
+        printf("%d",arr[i]);
+    }
+}
 
 int main(){
-    char str[] = "             hello world toi ten la ngoc truong ";
-    int a = strlen(str);
-    int word = 0;
-    for(int i = 0; i < a; i++){
-        if(str[i] == ' ' && str[i+1] == ' '){
-            continue;
-        }
-        else if(str[i] == ' ' && str[i+1] != ' ' && str[i+1] != '\0'){
-            word++;
-        }
-        else{
-            continue;
-        }
+    if(ptr == NULL){
+        printf("cannot allocate memory");
     }
-    printf("so tu trong chuoi:  %d",word);
+    unsigned int a;
+    printf("nhap a: \n");
+    scanf("%d",&a);
+    change_int_binary(a);
     return 0;
 }
