@@ -58,3 +58,125 @@ int main(){
 }
 
 
+CÂU5: check elements array
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int *arr = (int *)malloc(100*sizeof(int));						// dynamic allocate arr[100]
+int dem = 0;													// create a variable to count elements in arr[100]
+
+int change_int_binary(int* &arr,int a){							// change integer to binary
+    for(int i = 0; i < 100; i++){								// element arr[i] = divide and get the remainder
+        arr[i] = a % 2;
+        a = a / 2;
+        printf("gia tri cua a: %d\n",a);
+        printf("gia tri cua dem: %d\n",dem);
+        printf("gia tri cua arr[%d]: %d\n",i,arr[i]);
+        dem++;
+        if(a == 1){												// value a = 1 so out for()
+        	return dem;
+		}
+		
+    }
+}
+void thu_tu_big_edian(int* &arr,int &dem){						// rearrange the order of the array elements
+	for(int i = 0; i < dem/2 ; i++){							// swap positions
+		int tmp = arr[i];
+		arr[i] = arr[dem-i-1];
+		arr[dem-i-1] = tmp;	
+	}
+	for(int i = 0; i < dem; i++){								// print array
+		printf("arr[%d]: %d\n",i,arr[i]);
+	}
+	printf("so phan tu cua mang: %d \n",dem);					// print total numbers of array elements
+}
+void check_vitri(int *arr){										// import position need to check
+	int check;
+	printf("nhap vi tri can kiem tra:");
+	scanf("%d",&check);
+	printf("phan tu trong mang arr[%d]: %d",check, arr[check]);	// print value need to check
+}
+int main(){
+    if(arr == NULL){
+        printf("cannot allocate memory");						// check the memory is dynamic allocated
+    }
+    else{
+	}
+    unsigned int a;
+    printf("nhap a: ");
+    scanf("%d",&a);
+    change_int_binary(arr,a);
+    printf("gia tri cua dem: %d\n",dem);
+    thu_tu_big_edian(arr,dem);
+    check_vitri(arr);
+    free(arr);													// delete dynamic allocate
+    return 0;
+}
+
+CÂU6:
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int *arr = (int *)malloc(100*sizeof(int));						// dynamic allocate arr[100]
+int dem = 0;													// create a variable to count elements in arr[100]
+
+int change_int_binary(int* &arr,int a){							// change integer to binary
+    for(int i = 0; i < 100; i++){								// element arr[i] = divide and get the remainder
+        arr[i] = a % 2;
+        a = a / 2;
+        printf("gia tri cua a: %d\n",a);
+        printf("gia tri cua dem: %d\n",dem);
+        printf("gia tri cua arr[%d]: %d\n",i,arr[i]);
+        dem++;
+        if(a == 1){												// value a = 1 so out for()
+        	return dem;
+		}
+		
+    }
+}
+void thu_tu_big_edian(int* &arr,int &dem){						// rearrange the order of the array elements
+	for(int i = 0; i < dem/2 ; i++){							// swap positions
+		int tmp = arr[i];
+		arr[i] = arr[dem-i-1];
+		arr[dem-i-1] = tmp;	
+	}
+}
+void print_arr(int *arr){
+		for(int i = 0; i < dem; i++){								// print array
+		printf("arr[%d]: %d\n",i,arr[i]);
+	}
+	printf("so phan tu cua mang: %d \n",dem);					// print total numbers of array elements
+}
+void check_vitri(int *arr){										// import position need to check
+	int check;
+	printf("nhap vi tri can kiem tra:");
+	scanf("%d",&check);
+	printf("phan tu trong mang arr[%d]: %d\n",check, arr[check]);	// print value need to check
+	if(arr[check] == 0){
+		arr[check] = 1;
+		printf("gia tri luc nay: %d\n", arr[check]);
+	}
+	else{
+		arr[check] = 0;
+		printf("gia tri luc nay: %d\n", arr[check]);
+	}
+}
+int main(){
+    if(arr == NULL){
+        printf("cannot allocate memory");						// check the memory is dynamic allocated
+    }
+    else{
+	}
+    unsigned int a;
+    printf("nhap a: ");
+    scanf("%d",&a);
+    change_int_binary(arr,a);
+    printf("gia tri cua dem: %d\n",dem);
+    thu_tu_big_edian(arr,dem);
+    check_vitri(arr);
+    print_arr(arr);
+    free(arr);													// delete dynamic allocate
+    return 0;
+}

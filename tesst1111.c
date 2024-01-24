@@ -1,28 +1,27 @@
-// #include "lib.h"
-
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
-int *arr = (int *)malloc(100*sizeof(int));
+// Define a structure to hold different data types
+struct Element {
+    int intValue;
+    float floatValue;
+    char charValue;
+};
 
-void change_int_binary(int a){
-    for(int i = 0; i < 100; i++){
-        arr[i] = a % 2;
-        a = a / 2;
-    }
-    for(int i = 0; i < 100; i++){
-        printf("%d",arr[i]);
-    }
-}
+int main() {
+    // Declare an array of structures to hold different data types
+    struct Element dataArray[5];
 
-int main(){
-    if(ptr == NULL){
-        printf("cannot allocate memory");
-    }
-    unsigned int a;
-    printf("nhap a: \n");
-    scanf("%d",&a);
-    change_int_binary(a);
+    // Initialize the elements with different values
+    dataArray[0].intValue = 10;
+    dataArray[1].floatValue = 3.14;
+    dataArray[2].charValue = 'A';
+    // You can continue initializing the remaining elements...
+
+    // Access and print the values
+    printf("Value at index 0 (int): %d\n", dataArray[0].intValue);
+    printf("Value at index 1 (float): %.2f\n", dataArray[1].floatValue);
+    printf("Value at index 2 (char): %c\n", dataArray[2].charValue);
+    // You can continue accessing and printing the values for other elements...
+
     return 0;
 }
