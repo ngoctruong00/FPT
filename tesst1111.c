@@ -1,62 +1,64 @@
 #include <stdio.h>
-#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 
-// Function to sum two matrices with fixed arguments
-void SumArrFixed(int result[5][7], int arr1[5][7], int arr2[5][7]) {
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 7; j++) {
-            result[i][j] = arr1[i][j] + arr2[i][j];
-        }
-    }
-}
+#define MAX_STRING_LENGTH 24
+typedef struct{
+    int ID[60000];
+    char FULL_NAME[MAX_STRING_LENGTH];
+    float AVERAGE_MARK;
+} table;
 
-// Function to sum two matrices with half-fixed arguments
-void SumArrHalfFixed(int result[][7], int arr1[][7], int arr2[][7], int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            result[i][j] = arr1[i][j] + arr2[i][j];
-        }
-    }
+// write to a strudent to text
+void write_student_to_text_file(FILE *fp, const table *tb){
+    fprintf(fp,"%d %s %f\n",tb->ID,tb->FULL_NAME,tb->AVERAGE_MARK);
 }
+// read to a strudent to text
+void read_student_to_text_file(FILE *fp,table *tb){
+    fscanf(fp,"%d %s %f\n",tb->ID,tb->FULL_NAME,tb->AVERAGE_MARK);
+}
+// write to a strudent to binary
+// read to a strudent to binary
 
-// Function to print a matrix
-void printMatrix(int rows, int cols, int matrix[rows][cols]) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-}
 
 int main() {
-    int arr1[5][7] = {
-		{1, 2, 3, 4, 5, 6, 7},
-		{1, 2, 3, 4, 5, 6, 7},
-		{1, 2, 3, 4, 5, 6, 7},
-		{1, 2, 3, 4, 5, 6, 7},
-		{1, 2, 3, 4, 5, 6, 7}};
 
-    int arr2[5][7] = {
-		{-1, -2, -3, -4, -5, -6, -7},
-		{1, 2, 3, 4, 5, 6, 7},
-		{-1, -2, -3, -4, -5, -6, -7},
-		{1, 2, 3, 4, 5, 6, 7},
-		{-1, -2, -3, -4, -5, -6, -7}};
+    // input each student from keyboard.
+    FILE *fp;
+    if (fp == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+    char choice,view_all;
+    table tb;
+    do{
+    printf("Studen information: ");                 //input information strudent
+    printf("Student ID: ");
+    scanf("%d",&tb.ID);
+    fflush(stdin);
+    printf("Student FULL_NAME: ");
+    fgets(tb.FULL_NAME, MAX_STRING_LENGTH, stdin);
+    tb.FULL_NAME[strcspn(tb.FULL_NAME, "\n")] != '\0'; // Remove trailing newline
+    printf("Student AVERAGE_MARK: ");
+    scanf("%f",&tb.AVERAGE_MARK);
 
-    int result[5][7];
+    // save information student into file.txt
+    fp = fopen("table.txt", "a");
+    // write to a strudent to text
+    write_student_to_text_file(fp, &tb);
 
-    // Method 1: Fixed arguments
-    SumArrFixed(result, arr1, arr2);
-    printf("Method 1 (Fixed Arguments):\n");
-    printMatrix(5, 7, result);
-    printf("\n");
 
-    // Method 2: Half-fixed arguments
-    SumArrHalfFixed(result, arr1, arr2, 5, 7);
-    printf("Method 2 (Half-Fixed Arguments):\n");
-    printMatrix(5, 7, result);
-    printf("\n");
+    printf("DO YOU WANT INPUT THE NEXT STUDENT?");
+    printf("Y OR N?");
+    scanf("%d",&choice);
+    }while(choice == 'Y' || choice == 'y');
 
+    printf("Do you want to view all students (y/n)? ");
+    scanf(" %c", &view_all);
+
+    if(view_all == 'y' || view_all == 'Y'){
+        fp = fopen("table.txt", "r");
+        printf("%d %s %.2f\n", tb.ID, tb.FULL_NAME, tb.AVERAGE_MARK);
+    }
     return 0;
 }

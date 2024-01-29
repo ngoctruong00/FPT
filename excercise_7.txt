@@ -1,0 +1,194 @@
+Câu 1:
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char strings[10][50] = {
+        "String 1",
+        "String 2",
+        "String 3",
+        "String 4",
+        "String 5",
+        "String 6",
+        "String 7",
+        "String 8",
+        "String 9",
+        "String 10"
+    };
+
+    // Open the file in write mode
+    fp = fopen("my_text_file.txt", "w");
+
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // Write strings using fputs
+    for (int i = 0; i < 10; i++) {
+        fputs(strings[i], fp);
+        fputs("\n", fp);  // Add a newline character after each string
+    }
+
+    // Write strings using fprintf
+    for (int i = 0; i < 10; i++) {
+        fprintf(fp, "%s\n", strings[i]);  // fprintf automatically adds newline
+    }
+
+    fclose(fp);  // Close the file
+
+    printf("Strings written to file successfully!\n");
+
+    return 0;
+}
+CÂU 2:
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char strings[10][50] = {
+        "String 1\n",
+        "String 2\n",
+        "String 3\n",
+        "String 4\n",
+        "String 5\n",
+        "String 6\n",
+        "String 7\n",
+        "String 8\n",
+        "String 9\n",
+        "String 10\n"
+    };
+
+    // Open the file in write mode
+    fp = fopen("my_text_file.txt", "w");
+
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return 1;
+    }
+
+    // Write strings using fputs
+    for (int i = 0; i < 10; i++) {
+        fputs(strings[i], fp);
+    }
+
+    // Write strings using fprintf
+    for (int i = 0; i < 10; i++) {
+        fprintf(fp, "%s\n", strings[i]);  // fprintf automatically adds newline
+    }
+
+    fclose(fp);  // Close the file
+
+    printf("Strings written to file successfully!\n");
+
+    return 0;
+}
+
+
+CÂU3:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    FILE *filePointer = fopen("example.txt", "w"); // Open file for writing
+
+    if (filePointer == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+    // allocate memory for arrays
+    char **arr = (char**)malloc(5*sizeof(char*));
+
+    // allocate memory for elements of arrays
+    for(int i = 0; i < 5; i++){
+        arr[i] = malloc(100*sizeof(char));
+    }
+
+    // create contents of strings in arrays
+    for(int i = 0; i < 5; i++){
+        sprintf(arr[i],"chuoi %d",i);
+    }
+
+    // loop to write each Byte of all strings to a file by fwrite function.
+    for(int i = 0; i < 5; i++){
+        // string size
+        int len = strlen(arr[i]);
+        fwrite(arr[i], 1, len,filePointer);
+    }
+
+    for(int i = 0; i < 5; i++){
+        free(arr[i]);
+    };
+
+    free(arr);
+
+    return 0;
+}
+
+CÂU4
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_STRING_LENGTH 24
+typedef struct{
+    int ID[60000];
+    char FULL_NAME[MAX_STRING_LENGTH];
+    float AVERAGE_MARK;
+} table;
+
+// write to a strudent to text
+void write_student_to_text_file(FILE *fp, const table *tb){
+    fprintf(fp,"%d %s %f\n",tb->ID,tb->FULL_NAME,tb->AVERAGE_MARK);
+}
+// read to a strudent to text
+void read_student_to_text_file(FILE *fp,table *tb){
+    fscanf(fp,"%d %s %f\n",tb->ID,tb->FULL_NAME,tb->AVERAGE_MARK);
+}
+// write to a strudent to binary
+// read to a strudent to binary
+
+
+int main() {
+
+    // input each student from keyboard.
+    FILE *fp;
+    if (fp == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+    char choice,view_all;
+    table tb;
+    do{
+    printf("Studen information: ");                 //input information strudent
+    printf("Student ID: ");
+    scanf("%d",&tb.ID);
+    fflush(stdin);
+    printf("Student FULL_NAME: ");
+    fgets(tb.FULL_NAME, MAX_STRING_LENGTH, stdin);
+    tb.FULL_NAME[strcspn(tb.FULL_NAME, "\n")] != '\0'; // Remove trailing newline
+    printf("Student AVERAGE_MARK: ");
+    scanf("%f",&tb.AVERAGE_MARK);
+
+    // save information student into file.txt
+    fp = fopen("table.txt", "a");
+    // write to a strudent to text
+    write_student_to_text_file(fp, &tb);
+
+
+    printf("DO YOU WANT INPUT THE NEXT STUDENT?");
+    printf("Y OR N?");
+    scanf("%d",&choice);
+    }while(choice == 'Y' || choice == 'y');
+
+    printf("Do you want to view all students (y/n)? ");
+    scanf(" %c", &view_all);
+
+    if(view_all == 'y' || view_all == 'Y'){
+        fp = fopen("table.txt", "r");
+        printf("%d %s %.2f\n", tb.ID, tb.FULL_NAME, tb.AVERAGE_MARK);
+    }
+    return 0;
+}
