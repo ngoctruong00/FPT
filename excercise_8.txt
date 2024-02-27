@@ -1,0 +1,644 @@
+cau 1:
+In a school, information of each student has 3 fields:
+- ID: an integer.
+- Full name: a string which max length is 24. Space char is allowed in the full name.
+- Average mark: is a floating-point value.
+Loop to input each student from keyboard. After each student is completely input (3
+fields were input), display a question to ask user whether they want to input next student
+or not. The loop is ended when user answers that they don’t want to input next student.
+After the loop is ended, ask user whether they want to view all students. If they want,
+print all students on screen.
+Because student quantity is not defined, the program should use linked list to store
+students.
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+#define MAX_LENGTH 24
+// create node in linked list
+struct Student{
+    int ID;
+    char Name[MAX_LENGTH];
+    float Avr;
+    struct Student* next;
+};
+// create head linked list of students
+struct Student* head = NULL;
+
+// create the function add student in linked list
+void addStudent(){
+    struct Student* New_student =  (struct Student*)malloc(sizeof(struct Student));
+
+    // check allocate memory
+    if(New_student == NULL){
+        printf("Fail: Memory allocation failed\n");
+        return;
+    }
+    // Enter information student
+    printf("Enter ID student:");
+    scanf("%d",&New_student->ID);
+    printf("Enter Name[max24] student:");
+    scanf(" %24[^\n]",&New_student->Name);
+    printf("Enter average student:");
+    scanf(" %f",&New_student->Avr);
+
+    New_student->next = NULL; // New student is always at the end of the list
+
+    // // Add new student to the list
+    if (head == NULL) {
+        head = New_student;
+    } else {
+        struct Student* current = head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = New_student;
+    }
+
+}
+void print_list(){
+    if(head == NULL) {
+        printf("Fail: No Student in list \n");
+        return;
+    }
+	else{
+        struct Student* current = head;
+        while(current != NULL) {
+        printf("ID: %d\n",current->ID);
+        printf("Name: %s\n",current->Name);
+        printf("Avergare: %f\n",current->Avr);
+        current = current->next;
+    	}
+	}
+}
+
+int main() {
+    char choice;
+
+    do {
+        addStudent();
+
+        printf("Do you want to add another student? (y/n): ");
+        scanf(" %c", &choice);
+    } while (choice == 'y' || choice == 'Y');
+    
+    // print student
+    printf("Do you want to show all student? [y/n]: ");
+    scanf(" %c",&choice);
+    if (choice == 'y' || choice == 'Y') {
+        print_list();
+    }
+    
+    // free the memory allocate file
+    struct Student* current = head;
+    while(current != NULL){
+    	struct Student* temp = current;
+    	current = current->next;
+    	free(temp);
+	}
+
+    return 0;
+}
+
+
+Câu 2:
+Calculate the Sum of Array Elements:
+Write a function to calculate and return the sum of all elements in an integer array.
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int sum(int a[],int n){
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += a[i];
+    }
+    return sum;
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        scanf("%d", &a[i]);
+    }
+    int tong = sum(a, n);
+    printf("tong: %d",tong);
+    return 0;
+}
+
+
+câu 3 Find the Maximum Element in an Array:
+Write a function to find and return the maximum element in an integer array.
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int sum(int a[],int n){
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += a[i];
+    }
+    return sum;
+}
+int Find_Max(int a[],int n){
+    int MAX = a[0];
+    for(int i = 1; i < n; i++){
+        if(a[i] > MAX){
+            MAX = a[i];
+        }
+    }
+    printf("MAX of array: %d\n", MAX);
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        scanf("%d", &a[i]);
+    }
+    // // sum of interger arrays
+    // int tong = sum(a, n);
+    // printf("tong: %d",tong);
+
+    // find max in integer arrays
+    Find_Max(a, n);
+
+    return 0;
+}
+
+
+4. Calculate the Average of Array Elements:
+Write a function to calculate and return the average of all elements in an integer array.
+
+int Avg(int a[],int n){
+    int sum = 0;
+    for(int i = 0; i < n; i++){
+        sum += a[i];
+    }
+    float avg = (float)(sum / n);
+    return avg;
+}
+
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        scanf("%d", &a[i]);
+    }
+    // // sum of interger arrays
+    // int tong = sum(a, n);
+    // printf("tong: %d",tong);
+
+    // find max in integer arrays
+    // Find_Max(a, n);
+
+
+    // average  of interger arrays
+    printf("pointer: %lf",Avg(a,n));
+    return 0;
+}
+
+5. Reverse an Array:
+Write a function to reverse the elements of an integer array in place.
+void reverse_array(int a[],int n){
+    // change elements
+    for(int i = 0; i < n/2;i++){
+        int temp = a[i];
+        a[i] = a[n-i-1];
+        a[n-1-i] = temp;
+    }
+    // print elements
+    for(int i = 0; i < n;i++){
+        printf("a[%d]: %d ",i,a[i]);
+    }
+}
+
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+    // // sum of interger arrays
+    // int tong = sum(a, n);
+    // printf("tong: %d",tong);
+
+    // find max in integer arrays
+    // Find_Max(a, n);
+
+
+    // average  of interger arrays
+    // printf("pointer: %lf",Avg(a,n));
+
+    // reverse array
+    reverse_array(a,n);
+
+
+    return 0;
+}
+
+6. Check if an Array is Sorted:
+Write a function to check if an integer array is sorted in non-decreasing order.
+void check_array(int a[],int n){
+    int Max = a[0];
+    for(int i = 0; i < n; i++){
+        if(a[i] > Max){
+            printf("Array is not sorted in non-decreasing order.\n");
+            return ;
+        }
+    }
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+    // // sum of interger arrays
+    // int tong = sum(a, n);
+    // printf("tong: %d",tong);
+
+    // find max in integer arrays
+    // Find_Max(a, n);
+
+
+    // average  of interger arrays
+    // printf("pointer: %lf",Avg(a,n));
+
+    // reverse array
+    // reverse_array(a,n);
+
+    //check array sorted
+    check_array(a,n);
+
+
+    return 0;
+}
+
+7. Count Occurrences of a Number in an Array:
+Write a function to count and return the number of occurrences of a given number in an
+integer array.
+
+void Occurrences_Number(int a[],int n){
+    int check;
+    int count = 0;
+    printf("Which number do you want to check? ");
+    scanf("%d",&check);
+    for(int i = 0; i < n; i++){
+        if(check == a[i]){
+            count++;
+        }
+    }
+    printf("the number of occurrences: %d",count);
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+    // // sum of interger arrays
+    // int tong = sum(a, n);
+    // printf("tong: %d",tong);
+
+    // find max in integer arrays
+    // Find_Max(a, n);
+
+
+    // average  of interger arrays
+    // printf("pointer: %lf",Avg(a,n));
+
+    // reverse array
+    // reverse_array(a,n);
+
+    //check array sorted
+    // check_array(a,n);
+
+    //check occurrences
+    Occurrences_Number(a,n);
+
+
+    return 0;
+}
+
+
+8. Remove Duplicates from an Array:
+Write a function to remove duplicate elements from an integer array (retain only the first
+occurrence of each element).
+
+void remove_Occurrences_Number(int a[], int *n){
+    int check;
+    printf("Which number do you want to check? ");
+    scanf("%d",&check);
+
+    int count = 0; // Biến đếm số lần xuất hiện của phần tử
+
+    // Đếm số lần xuất hiện của phần tử trong mảng
+    for (int i = 0; i < *n; i++) {
+        if (a[i] == check) {
+            count++;
+        }
+    }
+
+    // Nếu chỉ có một lần xuất hiện của phần tử, không cần làm gì cả
+    if (count <= 1) {
+        return;
+    }
+    //tạo chỉ số mới cho mảng
+    int newindex = 0;
+    // xóa phần tử thừa
+    for(int i = 0;i < *n;i++){
+        if(a[i] != check || count == 1) {
+            a[newindex++] = a[i];
+        }
+        else{
+            count--;
+        }
+    }
+    // cập nhật lại kích thước mảng
+    *n = newindex;
+    // print elements
+    for(int i = 0; i < *n;i++){
+        printf("a[%d]: %d ",i,a[i]);
+    }
+
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+
+    //reverse_array(a,n);
+    remove_Occurrences_Number(a,&n);
+
+
+    return 0;
+}
+
+Rotate an Array:
+Write a function to rotate the elements of an integer array to the left or right by a given
+number of positions.
+
+void rotate_position(int a[], int n){
+    int change;
+    // tạo index mới
+    int newindex = 0;
+    int new_arr[n];
+    printf("what position do u change?");
+    scanf("%d",&change);
+    //đổi chỗ từ bên phải lên trước
+    for(int c = change + 1; c < n ; c++){
+        new_arr[newindex++] = a[c];
+    }
+    int tmp = change;
+    // đổi chỗ từ bên trái ra sau
+    new_arr[newindex] = a[change];
+    for(int d = 0; d < tmp; d++){
+        new_arr[++newindex] = a[d];
+    }
+
+    // print elements
+    for(int i = 0; i < n;i++){
+        printf("a[%d]: %d ",i,new_arr[i]);
+    }
+
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+
+
+    //rotate array
+    rotate_position(a,n);
+
+
+    return 0;
+}
+
+10. Find the Second Largest Element in an Array:
+Write a function to find and return the second largest element in an integer array.
+
+void Second_Largest_Element(int a[],int n){
+    int Max1 = a[0];
+    int Max2 = a[1];
+    for(int i = 2; i < n; i++){
+        if(a[i] > Max1){
+            Max1 = a[i];
+        }
+    }
+    printf("\nMAX1 is: %d\n",Max1);
+    for(int i = 2; i < n; i++){
+        if(a[i] > Max2 && a[i] != Max1){
+            Max2 = a[i];
+        }
+    }
+    printf("\nMAX2 is: %d\n",Max2);
+    if(Max1 < Max2){
+        printf("\nThe second largest element is: %d\n",Max1);
+    }
+    else{
+        printf("\nThe second largest element is: %d\n",Max2);
+
+    }
+
+}
+
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+
+    // Second_Largest_Element
+    Second_Largest_Element(a,n);
+
+
+    return 0;
+}
+
+11. Check for Palindrome Array:
+Write a function to check if an integer array is a palindrome, i.e., it reads the same
+forward and backward.
+
+void Palindrome_Array(int a[], int n){
+    int flag = 0;
+    for(int i = 0; i < n/2 && n != 0; i++){
+        if(a[i] != a[n - i - 1]){
+            flag = 1;
+            break;
+        }
+    }
+    if(flag == 1){
+        printf("This array is not palindromic.");
+    }else{
+        printf("This array is palindromic.");
+    }
+}
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+
+    // bubble_sort(a,n);
+    Palindrome_Array(a,n);
+
+    return 0;
+}
+
+
+12. Create an array of integer values. Then implement functions as following:
+1. Implement a function to sort (increase or decrease) the array by Bubble Sort
+algorithm.
+void bubble_sort(int a[],int n) {
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n-i; j++){
+            if(a[j] > a[j+1]){
+                int tmp = a[j];
+                a[j] = a[j+1];
+                a[j+1] = tmp;
+            }
+        }
+    }
+    // print elements
+    for(int i = 0; i < n;i++){
+        printf("a[%d]: %d ",i,a[i]);
+    }
+
+}
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+
+    // bubble_sort(a,n);
+    Palindrome_Array(a,n);
+
+    return 0;
+}
+2. Implement a function to sort (increase or decrease) the array by Selection Sort
+algorithm.
+void selection_sort(int a[],int n){
+    int index_Min;
+    for(int i = 0;i < n-1;i++){
+        index_Min = i;
+        //tìm số bé nhất trong mảng
+        for(int j = i+1; j < n; j++){
+            if(a[j] < a[i]){
+                index_Min = j;
+            }
+        }
+        // đổi chỗ với vị trí thứ i
+        if(index_Min != i){
+            int tmp = a[i];
+            a[i] = a[index_Min];
+            a[index_Min] = tmp;
+        }
+    }
+
+    // print elements
+    for(int i = 0; i < n;i++){
+        printf("a[%d]: %d ",i,a[i]);
+    }
+
+}
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+
+    // bubble_sort(a,n);
+    // Palindrome_Array(a,n);
+
+    selection_sort(a,n);
+    return 0;
+}
+3. Implement a function to sort (increase or decrease) the array by Insertion Sort
+algorithm.
+
+void Insertion_Sort(int a[], int n){
+    int i,j,tmp;
+    for(int i = 0;i < n-1;i++){
+        for(int j = i - 1; j >= 0; j--){
+            if(a[j] > a[j+1]){
+                tmp = a[j];
+                a[j] = a[j + 1];
+                a[j+1] = tmp;
+            }
+        }
+    }
+    // print elements
+    for(int i = 0; i < n;i++){
+        printf("a[%d]: %d ",i,a[i]);
+    }
+}
+int main() {
+    int n;
+    printf("number element of array:");
+    scanf("%d", &n);
+    int a[n];
+    for(int i = 0; i < n; i++){
+        printf("a[%d]: ",i);
+        scanf("%d", &a[i]);
+    }
+    Insertion_Sort(a,n);
+    return 0;
+}
+4. Implement a function to sort (increase or decrease) the array by using the qsort
+function of the C language. This function is declared in the header file stdlib.h.
+5. Implement a function to search for a specific value in the sorted array by the Binary
+Search algorithm.

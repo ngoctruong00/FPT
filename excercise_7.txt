@@ -192,3 +192,134 @@ int main() {
     }
     return 0;
 }
+
+cau 5:
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_NAME_LENGTH 24
+#define ARRAY_SIZE 10
+
+typedef struct {
+    int id;
+    char fullName[MAX_NAME_LENGTH];
+    float averageMark;
+} Student;
+
+void saveToFileText(Student students[], int count) {
+    FILE *file = fopen("students.txt", "w");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        exit(1);
+    }
+
+    fprintf(file, "%d\n", count);
+
+    for (int i = 0; i < count; i++) {
+        fprintf(file, "%d %s %.2f\n", students[i].id, students[i].fullName, students[i].averageMark);
+    }
+
+    fclose(file);
+}
+
+void saveToFileBinary(Student students[], int count) {
+    FILE *file = fopen("students.bin", "wb");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        exit(1);
+    }
+
+    fwrite(&count, sizeof(int), 1, file);
+
+    fwrite(students, sizeof(Student), count, file);
+
+    fclose(file);
+}
+
+void loadFromFileText() {
+    FILE *file = fopen("students.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file for reading.\n");
+        exit(1);
+    }
+
+    int count;
+    fscanf(file, "%d", &count);
+
+    for (int i = 0; i < count; i++) {
+        Student student;
+        fscanf(file, "%d %s %f", &student.id, student.fullName, &student.averageMark);
+        printf("ID: %d, Name: %s, Average Mark: %.2f\n", student.id, student.fullName, student.averageMark);
+    }
+
+    fclose(file);
+}
+
+void loadFromFileBinary() {
+    FILE *file = fopen("students.bin", "rb");
+    if (file == NULL) {
+        printf("Error opening file for reading.\n");
+        exit(1);
+    }
+
+    int count;
+    fread(&count, sizeof(int), 1, file);
+
+    Student students[count];
+    fread(students, sizeof(Student), count, file);
+
+    for (int i = 0; i < count; i++) {
+        printf("ID: %d, Name: %s, Average Mark: %.2f\n", students[i].id, students[i].fullName, students[i].averageMark);
+    }
+
+    fclose(file);
+}
+
+int main() {
+    Student students[ARRAY_SIZE];
+    int studentCount = 0;
+
+    char answer;
+    do {
+        printf("Enter student information:\n");
+        printf("ID: ");
+        scanf("%d", &students[studentCount].id);
+        printf("Full Name: ");
+        scanf("%s", students[studentCount].fullName);
+        printf("Average Mark: ");
+        scanf("%f", &students[studentCount].averageMark);
+
+        studentCount++;
+
+        if (studentCount == ARRAY_SIZE) {
+            saveToFileText(students, studentCount);
+            saveToFileBinary(students, studentCount);
+
+            printf("Do you want to input another student? (y/n): ");
+            scanf(" %c", &answer);
+
+            if (answer == 'y') {
+                studentCount = 0;
+            }
+        } else {
+            printf("Do you want to input another student? (y/n): ");
+            scanf(" %c", &answer);
+        }
+    } while (answer == 'y');
+
+    saveToFileText(students, studentCount);
+    saveToFileBinary(students, studentCount);
+
+    printf("Do you want to view all students in the file? (y/n): ");
+    scanf(" %c", &answer);
+
+    if (answer == 'y') {
+        printf("Loading and displaying students from text file:\n");
+        loadFromFileText();
+
+        printf("Loading and displaying students from binary file:\n");
+        loadFromFileBinary();
+    }
+
+    return 0;
+}

@@ -1,0 +1,119 @@
+#include<stdio.h>
+#include <stdlib.h>
+
+// set long Name
+#define Max_Name 25
+
+/* Create a
+program with menu selection
+
+The user’s
+attributes: Account number, Name, Password, Age, Sex, Account balance.
+
+1.     Login Account
+
+
+2.     Check Account
+
+
+3.     Withdrawal:
+
+
+a.     The amount to withdraw must be a
+multiple of 10,000 VND
+
+
+b.     The minimum amount in the account
+must be > 50,000 VND
+
+
+4.     Send Cash
+
+
+5.     Update Account (add, remove, change
+info)
+
+
+6.     Exit */
+void Login(){
+    
+}
+struct AccountInfo {
+    char Name[Max_Name];
+    char Password;
+    char Sex;
+    int Account_number;
+    int Age;
+    int Account_balance;
+    struct Node* next;
+};
+
+int main(){
+
+    int select;
+    char choose;
+    
+    do{
+        // options
+        printf("--------------ATM---------------\n");
+
+        printf("1. Login Account\n");
+        printf("2. Check Account\n");
+        printf("3. Withdrawal\n");
+        printf("4. Send Cash\n");
+        printf("5. Update Account (add, remove, change info)\n");
+        printf("6. Exit\n");
+        
+        printf("Your selection: ");
+        press:
+
+        // input selection
+        scanf(" %1d",&select);
+        getchar();
+
+        // options run
+        switch (select)
+        {
+        // login account
+        case 1:
+            printf("login account");
+            char tai_khoan;
+            printf("Do you have an account?\n");
+            scanf("%c",&tai_khoan);
+            if 
+            break;
+        // check account
+        case 2:
+            printf("check account"); 
+            break;
+        // Withdrawal
+        case 3:
+            printf("Withdrawal"); 
+            break;
+        // Send cash
+        case 4:
+            printf("Send cash"); 
+            break;
+        // Update account
+        case 5:
+            printf("Update account"); 
+            break;
+        // exit
+        case 6:
+            exit(0);
+            break;
+        
+        default:
+            // press orther than selection
+            printf("The key you pressed is not in the selection \n");
+            printf("Press again: ");
+            goto press; 
+            break;
+        }
+
+        printf("Do you want to contiue? [y/n]?");
+        scanf("%1s", &choose);
+    }while(choose == 'Y' || choose == 'y');
+
+    return 0;
+}
